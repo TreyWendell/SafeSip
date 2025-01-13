@@ -17,10 +17,10 @@ def CalculateDrinks(weight, gender, level):
     weightInGrams = 453.6 * weight
 
     if (gender == "m" or gender =="M"):
-        R = .55
+        R = .68
 
     if (gender == "f" or gender =="F"):
-        R = .68
+        R = .55
 
     
     match level:
