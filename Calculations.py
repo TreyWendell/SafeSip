@@ -1,6 +1,5 @@
-def CalculateDrinks(weight, gender, level):
-    weight = float(weight)
-    level = float(level)
+def CalculateBAC(level):
+    bac = None
     #1. Really?
     #2. BAC 0.01–0.04: Altered reaction time, judgment, and behavior. Feeling of wellbeing: Talkative, more relaxed, and more confident
     #3. BAC 0.05–0.06 Relaxed and confident feelings, slightly impaired reasoning and memory
@@ -14,16 +13,9 @@ def CalculateDrinks(weight, gender, level):
     #BAC = [Alcohol consumed in grams / (Body weight in grams x R)] X 100     # Subliminal intoxication 
     #ALC consumer in grams = (BAC * WIG * R) / 100
     #R: is a gender-specific constant, with a value of 0.55 for females and 0.68 for males 
-    weightInGrams = 453.6 * weight
-
-    if (gender == "m" or gender =="M"):
-        R = .68
-
-    if (gender == "f" or gender =="F"):
-        R = .55
-
     
     match level:
+        
         case 1:
             print("Really?")
         case 2:
@@ -44,7 +36,22 @@ def CalculateDrinks(weight, gender, level):
             bac = 0.19
         case 10:
             bac = 0.22
+    
+    return bac
 
+def CalculateDrinks(weight, gender, bac):
+
+    if (gender == "m" or gender =="M"):
+        R = .68
+
+    if (gender == "f" or gender =="F"):
+        R = .55
+    
+    weightInGrams = 453.6 * weight
     alcInGrams = (bac * weightInGrams * R) / 100
     drinks = alcInGrams / 14
     return round(drinks,1)
+
+
+def CalculateHoursTillLegal(bac):
+    return  (bac - .08) / 0.015

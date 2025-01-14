@@ -1,7 +1,7 @@
 from tkinter import Tk, Label, Entry, Button, StringVar
-import CalculateDrinks  
+import Calculations
 
-def main():
+def main(): 
     root = Tk()
     root.title("GetFuckedUp - Drink Calculator")
     root.geometry('800x400')
@@ -32,23 +32,25 @@ def main():
     levelForm.grid(column=1, row=2, pady=10, padx=10)
 
     # Drinks Result Label
-    drinksLbl = Label(root, text="Drinks to be consumed in one hour:", font=font_label, fg=accent_color, bg="#1e1e2f", width=50, anchor="w")
+    drinksLbl = Label(root, text="Drinks to be consumed in one hour:", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
     drinksLbl.grid(column=0, row=4, columnspan=2, pady=20)
 
     # Calculate button action
     def clicked():
         gender = genderForm.get().strip()
-        weight = weightForm.get().strip()
-        level = levelForm.get().strip()
+        weight = float(weightForm.get().strip())
+        level = int(levelForm.get().strip())
 
         if not gender or not weight or not level:
             drinksLbl.configure(text="Please fill in all fields!", fg="#ff5722")  
             return
 
         try:
-            drinks = CalculateDrinks.CalculateDrinks(float(weight), gender, float(level))
+            bac = Calculations.CalculateBAC(level)
+            drinks = Calculations.CalculateDrinks(weight, gender, bac)
+            hoursTillLegal = Calculations.CalculateHoursTillLegal(bac)
             drinksLbl.configure(
-                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}",
+                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}, Test {hoursTillLegal}",
                 fg=accent_color
             )
         except ValueError:
