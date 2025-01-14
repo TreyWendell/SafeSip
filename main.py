@@ -1,60 +1,76 @@
-from tkinter import *
-import CalculateDrinks
+from tkinter import Tk, Label, Entry, Button, StringVar
+import CalculateDrinks  
 
 def main():
     root = Tk()
-    root.title("GetFuckedUp")
-    root.geometry('800x300')
-    
-    genderLbl = Label(root,width=15,text="Enter Gender (M/F): ")
-    genderLbl.grid(column=1,row=1)
-    genderForm = Entry(root, width=10)
-    genderForm.grid(column=2,row=1)
-    
-    weightLbl = Label(root,width=15,text="Enter Weight (lbs): ")
-    weightLbl.grid(column=1,row=2)
-    weightForm = Entry(root, width=10)
-    weightForm.grid(column=2,row=2)
-    
-    levelLbl = Label(root,width=20,text="Enter How FuckedUp (1-10): ")
-    levelLbl.grid(column=1,row=3)
-    levelForm = Entry(root, width=10)
-    levelForm.grid(column=2,row=3)
-    
-    drinksLbl = Label(root, text="Drinks to be consumed in one hour: ")
-    drinksLbl.grid(column=3,row=5)
+    root.title("GetFuckedUp - Drink Calculator")
+    root.geometry('800x400')
+    root.configure(bg="#1e1e2f")  
 
+    font_label = ("Helvetica", 12, "bold")
+    font_entry = ("Helvetica", 12)
+    font_button = ("Helvetica", 14, "bold")
+    text_color = "#f5f5f5"
+    accent_color = "#00bcd4"
 
+    # Gender Label and Entry
+    genderLbl = Label(root, text="Enter Gender (M/F):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
+    genderLbl.grid(column=0, row=0, pady=10, padx=10)
+    genderForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+    genderForm.grid(column=1, row=0, pady=10, padx=10)
+
+    # Weight Label and Entry
+    weightLbl = Label(root, text="Enter Weight (lbs):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
+    weightLbl.grid(column=0, row=1, pady=10, padx=10)
+    weightForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+    weightForm.grid(column=1, row=1, pady=10, padx=10)
+
+    # Level Label and Entry
+    levelLbl = Label(root, text="Enter How FuckedUp (1-10):", font=font_label, fg=text_color, bg="#1e1e2f", width=25, anchor="e")
+    levelLbl.grid(column=0, row=2, pady=10, padx=10)
+    levelForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+    levelForm.grid(column=1, row=2, pady=10, padx=10)
+
+    # Drinks Result Label
+    drinksLbl = Label(root, text="Drinks to be consumed in one hour:", font=font_label, fg=accent_color, bg="#1e1e2f", width=50, anchor="w")
+    drinksLbl.grid(column=0, row=4, columnspan=2, pady=20)
+
+    # Calculate button action
     def clicked():
-            gender = genderForm.get()
-            weight = weightForm.get()
-            level = levelForm.get()
-            
-            drinks = CalculateDrinks.CalculateDrinks(weight,gender,level)
-            drinksString = str(drinks)
-            levelString = str(level)
-            updatedLbl = "Drinks to be consumed in one hour: " + drinksString + " drinks to reach a level of " + levelString
-            drinksLbl.configure(text=updatedLbl)
-    btn = Button(root, text="Calculate Drinks", command=clicked)
-    btn.grid(column=1,row=4)
+        gender = genderForm.get().strip()
+        weight = weightForm.get().strip()
+        level = levelForm.get().strip()
 
-    
+        if not gender or not weight or not level:
+            drinksLbl.configure(text="Please fill in all fields!", fg="#ff5722")  
+            return
+
+        try:
+            drinks = CalculateDrinks.CalculateDrinks(float(weight), gender, float(level))
+            drinksLbl.configure(
+                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}",
+                fg=accent_color
+            )
+        except ValueError:
+            drinksLbl.configure(text="Invalid input. Please enter valid numbers.", fg="#ff5722")
+
+    # Calculate Button
+    btn = Button(
+        root,
+        text="Calculate Drinks",
+        command=clicked,
+        font=font_button,
+        bg=accent_color,
+        fg="#1e1e2f",
+        activebackground="#00acc1",
+        activeforeground=text_color,
+        width=20,
+        bd=0,
+        relief="flat",
+    )
+    btn.grid(column=0, row=3, columnspan=2, pady=20)
 
     root.mainloop()
-    
-    # try:
-    #     print("\n\n\nWelcome to the General Effecient Trey's Fast Ultimate Cool Knowledgeable Educative Drinking Unflappable Program")
-    #     # gender = str(input("\n\nEnter your gender (Type M or F): "))
-    #     # weight = float(input("\n\nEnter your weight: "))
-    #     # level = int(input("\n\nEnter how FuckedUp would you like to get tonight: "))
-    #     if level > 10 or level < 1:
-    #         print("\nStop Being Dumb\n")
-    #     else:
-    #         drinks = CalculateDrinks.CalculateDrinks(weight, gender, level)
-    #         print(f"\n\nTo reach a FuckedUp level of {level}, you must consume {drinks} drinks in one hour!\nYou are now legally bound to have {drinks} drinks!\n\n")
-    # except ValueError:
-    #     print("\n\nInsert the correct values, you twat!")
 
 if __name__ == "__main__":
     main()
-
