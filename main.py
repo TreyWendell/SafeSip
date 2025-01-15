@@ -3,7 +3,7 @@ import Calculations
 
 def main(): 
     root = Tk()
-    root.title("GetFuckedUp - Drink Calculator")
+    root.title("SafeSip - Drink Calculator")
     root.geometry('800x400')
     root.configure(bg="#1e1e2f")  
 
@@ -50,7 +50,7 @@ def main():
             drinks = Calculations.CalculateDrinks(weight, gender, bac)
             hoursTillLegal = Calculations.CalculateHoursTillLegal(bac)
             drinksLbl.configure(
-                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}, Test {hoursTillLegal}",
+                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}\nHours until you can drive: {hoursTillLegal:.2f}",
                 fg=accent_color
             )
         except ValueError:
