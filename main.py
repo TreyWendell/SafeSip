@@ -26,7 +26,7 @@ def main():
     weightForm.grid(column=1, row=1, pady=10, padx=10)
 
     # Level Label and Entry
-    levelLbl = Label(root, text="Enter How FuckedUp (1-10):", font=font_label, fg=text_color, bg="#1e1e2f", width=25, anchor="e")
+    levelLbl = Label(root, text="Enter What Level of Intoxication\nYou Would Like to Achieve (1-10):", font=font_label, fg=text_color, bg="#1e1e2f", width=26, anchor="e")
     levelLbl.grid(column=0, row=2, pady=10, padx=10)
     levelForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
     levelForm.grid(column=1, row=2, pady=10, padx=10)
