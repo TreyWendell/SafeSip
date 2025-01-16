@@ -35,6 +35,9 @@ def main():
     drinksLbl = Label(root, text="Drinks to be consumed in one hour:", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
     drinksLbl.grid(column=0, row=4, columnspan=2, pady=20)
 
+    # Hours Until Legal Label
+    hoursLBL = Label(root, text="You can drive again in approximately: ", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
+    hoursLBL.grid(column=0, row=5,columnspan=2,pady=20)
     # Calculate button action
     def clicked():
         gender = genderForm.get().strip()
@@ -50,8 +53,11 @@ def main():
             drinks = Calculations.CalculateDrinks(weight, gender, bac)
             hoursTillLegal = Calculations.CalculateHoursTillLegal(bac)
             drinksLbl.configure(
-                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}\nHours until you can drive: {hoursTillLegal:.2f}",
+                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}",
                 fg=accent_color
+            )
+            hoursLBL.configure(
+                text=f"You can drive again in approximately: {hoursTillLegal:.2f} hours"
             )
         except ValueError:
             drinksLbl.configure(text="Invalid input. Please enter valid numbers.", fg="#ff5722")
