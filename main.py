@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Entry, Button, StringVar
+from tkinter import *
 import Calculations
 
 def main(): 
@@ -14,10 +14,27 @@ def main():
     accent_color = "#00bcd4"
 
     # Gender Label and Entry
-    genderLbl = Label(root, text="Enter Gender (M/F):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
-    genderLbl.grid(column=0, row=0, pady=10, padx=10)
-    genderForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
-    genderForm.grid(column=1, row=0, pady=10, padx=10)
+    # genderLbl = Label(root, text="Enter Gender (M/F):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
+    # genderLbl.grid(column=0, row=0, pady=10, padx=10)
+    # genderForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+    # genderForm.grid(column=1, row=0, pady=10, padx=10)
+
+    Male = IntVar()
+    Female = IntVar()
+
+    MaleButton = Checkbutton(root, text="Male", 
+                             variable=Male,
+                             onvalue=1,
+                             offvalue=0
+                            )
+    FemaleButton = Checkbutton(root, text="Female", 
+                             variable=Female,
+                             onvalue=1,
+                             offvalue=0
+                            )
+    MaleButton.grid(column=0, row=0)
+    FemaleButton.grid(column=1 ,row=0, padx=100,pady=20)
+
 
     # Weight Label and Entry
     weightLbl = Label(root, text="Enter Weight (lbs):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
@@ -31,33 +48,46 @@ def main():
     levelForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
     levelForm.grid(column=1, row=2, pady=10, padx=10)
 
+    # Hours Label and Entry
+    hoursLbl = Label(root, text="Enter How Many Hours You\nWill Be Drinking Over: ", font=font_label, fg=text_color, bg="#1e1e2f", width=26, anchor="e")
+    hoursLbl.grid(column=0, row=3, pady=10, padx=10)
+    hoursForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+    hoursForm.grid(column=1, row=3, pady=10, padx=10)
+
     # Drinks Result Label
-    drinksLbl = Label(root, text="Drinks to be consumed in one hour:", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
-    drinksLbl.grid(column=0, row=4, columnspan=2, pady=20)
+    drinksLbl = Label(root, text="Drinks to be consumed:", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
+    drinksLbl.grid(column=0, row=5, columnspan=2, pady=20)
 
     # Hours Until Legal Label
-    hoursLBL = Label(root, text="You can drive again in approximately: ", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
-    hoursLBL.grid(column=0, row=5,columnspan=2,pady=20)
+    driveHoursLBL = Label(root, text="You can drive again in approximately: ", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
+    driveHoursLBL.grid(column=0, row=6,columnspan=2,pady=20)
+    
     # Calculate button action
     def clicked():
-        gender = genderForm.get().strip()
+        if Male.get() != Female.get():
+            if Male.get() == 1:
+                gender = "m"
+            else:
+                gender = "f"
+        
+        # gender = genderForm.get().strip()
         weight = float(weightForm.get().strip())
         level = int(levelForm.get().strip())
+        hours = float(hoursForm.get().strip())
 
         if not gender or not weight or not level:
             drinksLbl.configure(text="Please fill in all fields!", fg="#ff5722")  
             return
 
         try:
-            bac = Calculations.CalculateBAC(level)
+            bac = Calculations.CalculateBAC(level, hours)
             drinks = Calculations.CalculateDrinks(weight, gender, bac)
             hoursTillLegal = Calculations.CalculateHoursTillLegal(bac)
             drinksLbl.configure(
-                text=f"Drinks to be consumed in one hour: {drinks:.2f} drinks to reach level {level}",
-                fg=accent_color
+                text=f"Drinks to be consumed: {drinks:.2f}"
             )
-            hoursLBL.configure(
-                text=f"You can drive again in approximately: {hoursTillLegal:.2f} hours"
+            driveHoursLBL.configure(
+                text=f"You can drive again in approximately: {hoursTillLegal:.2f} hours after last drink"
             )
         except ValueError:
             drinksLbl.configure(text="Invalid input. Please enter valid numbers.", fg="#ff5722")
@@ -76,7 +106,7 @@ def main():
         bd=0,
         relief="flat",
     )
-    btn.grid(column=0, row=3, columnspan=2, pady=20)
+    btn.grid(column=0, row=4, columnspan=2, pady=20)
 
     root.mainloop()
 

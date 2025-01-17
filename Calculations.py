@@ -1,4 +1,4 @@
-def CalculateBAC(level):
+def CalculateBAC(level, hours):
     bac = None
     #1. Really?
     #2. BAC 0.01–0.04: Altered reaction time, judgment, and behavior. Feeling of wellbeing: Talkative, more relaxed, and more confident
@@ -36,7 +36,7 @@ def CalculateBAC(level):
             bac = 0.19
         case 10:
             bac = 0.22
-    
+    bac = bac + ((hours - 1) * .015)
     return bac
 
 def CalculateDrinks(weight, gender, bac):
@@ -55,3 +55,4 @@ def CalculateDrinks(weight, gender, bac):
 
 def CalculateHoursTillLegal(bac):
     return  (bac - .08) / 0.015
+    #TODO Fix lower limit if someone is already legal to drive after low drinks
