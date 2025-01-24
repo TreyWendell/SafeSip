@@ -5,7 +5,7 @@ class SafeSipApp(Tk):
     def __init__(self):
         super().__init__()
         self.title("SafeSipApp")
-        self.geometry("849x741")
+        self.geometry("845x730")
 
         container = Frame(self)
         container.pack(fill="both", expand=True)
@@ -39,11 +39,11 @@ class HomePage(Frame):
         background.create_image(0, 0, image = self.SafeSipLogo, anchor = "nw")
 
         homePageLabel = Label(self, text="Home Page")
-        homePageLabel_Canvas = background.create_text(100, 10,  
+        homePageLabel_Canvas = background.create_text(10, 10,  
                                        anchor = "nw", 
-                                       text= homePageLabel)
-        goToCalcButton = Button(self, text="Go to Drink Calculator", command=lambda: controller.show_frame(Calculator))
-        goToCalcButton_Canvas = background.create_window(100, 10,  
+                                       text= "Home Page")
+        goToCalcButton = Button(self, text="Go to Drink Calculator", command=lambda: controller.show_frame(Calculator), highlightbackground="#ffffff")
+        goToCalcButton_Canvas = background.create_window(670, 10,  
                                        anchor = "nw", 
                                        window = goToCalcButton)
         
@@ -53,21 +53,21 @@ class Calculator(Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
 
-        Label(self, text="Calculator").grid(pady=50, column=8)
-        Button(self, text="Back to Home", command=lambda: controller.show_frame(HomePage)).grid(column=3,row=8)
+        Label(self, text="Calculator", highlightbackground="#313b42").grid(padx=(0,350),pady=(0,200))
+        Button(self, text="Back to Home", highlightbackground="#313b42", command=lambda: controller.show_frame(HomePage)).grid(column=3,row=8 )
         
-        self.configure(bg="#1e1e2f")  
+        self.configure(bg="#313b42")  
 
         font_label = ("Helvetica", 12, "bold")
         font_entry = ("Helvetica", 12)
         font_button = ("Helvetica", 14, "bold")
         text_color = "#f5f5f5"
-        accent_color = "#00bcd4"
+        accent_color = "#fefac7"
 
         # Gender Label and Entry
-        # genderLbl = Label(root, text="Enter Gender (M/F):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
+        # genderLbl = Label(root, text="Enter Gender (M/F):", font=font_label, fg=text_color, bg="#313b42", width=20, anchor="e")
         # genderLbl.grid(column=0, row=0, pady=10, padx=10)
-        # genderForm = Entry(root, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+        # genderForm = Entry(root, font=font_entry, bg="#2f7d8c", fg=text_color, insertbackground=text_color, width=15)
         # genderForm.grid(column=1, row=0, pady=10, padx=10)
 
         Male = IntVar()
@@ -76,41 +76,43 @@ class Calculator(Frame):
         MaleButton = Checkbutton(self, text="Male", 
                                 variable=Male,
                                 onvalue=1,
-                                offvalue=0
+                                offvalue=0,
+                                bg="#313b42"
                                 )
         FemaleButton = Checkbutton(self, text="Female", 
                                 variable=Female,
                                 onvalue=1,
-                                offvalue=0
+                                offvalue=0,
+                                bg="#313b42"
                                 )
         MaleButton.grid(column=0, row=0)
         FemaleButton.grid(column=1 ,row=0, padx=100,pady=20)
 
 
         # Weight Label and Entry
-        weightLbl = Label(self, text="Enter Weight (lbs):", font=font_label, fg=text_color, bg="#1e1e2f", width=20, anchor="e")
+        weightLbl = Label(self, text="Enter Weight (lbs):", font=font_label, fg=text_color, bg="#313b42", width=20, anchor="e")
         weightLbl.grid(column=0, row=1, pady=10, padx=10)
-        weightForm = Entry(self, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+        weightForm = Entry(self, font=font_entry, bg="#2f7d8c", fg=text_color, insertbackground=text_color, width=15)
         weightForm.grid(column=1, row=1, pady=10, padx=10)
 
         # Level Label and Entry
-        levelLbl = Label(self, text="Enter What Level of Intoxication\nYou Would Like to Achieve (1-10):", font=font_label, fg=text_color, bg="#1e1e2f", width=26, anchor="e")
+        levelLbl = Label(self, text="Enter What Level of Intoxication\nYou Would Like to Achieve (1-10):", font=font_label, fg=text_color, bg="#313b42", width=26, anchor="e")
         levelLbl.grid(column=0, row=2, pady=10, padx=10)
-        levelForm = Entry(self, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+        levelForm = Entry(self, font=font_entry, bg="#2f7d8c", fg=text_color, insertbackground=text_color, width=15)
         levelForm.grid(column=1, row=2, pady=10, padx=10)
 
         # Hours Label and Entry
-        hoursLbl = Label(self, text="Enter How Many Hours You\nWill Be Drinking Over: ", font=font_label, fg=text_color, bg="#1e1e2f", width=26, anchor="e")
+        hoursLbl = Label(self, text="Enter How Many Hours You\nWill Be Drinking Over: ", font=font_label, fg=text_color, bg="#313b42", width=26, anchor="e")
         hoursLbl.grid(column=0, row=3, pady=10, padx=10)
-        hoursForm = Entry(self, font=font_entry, bg="#33334d", fg=text_color, insertbackground=text_color, width=15)
+        hoursForm = Entry(self, font=font_entry, bg="#2f7d8c", fg=text_color, insertbackground=text_color, width=15)
         hoursForm.grid(column=1, row=3, pady=10, padx=10)
 
         # Drinks Result Label
-        drinksLbl = Label(self, text="Drinks to be consumed:", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
+        drinksLbl = Label(self, text="Drinks to be consumed:", font=font_label, fg=accent_color, bg="#313b42", width=100, anchor="w")
         drinksLbl.grid(column=0, row=5, columnspan=2, pady=20)
 
         # Hours Until Legal Label
-        driveHoursLBL = Label(self, text="You can drive again in approximately: ", font=font_label, fg=accent_color, bg="#1e1e2f", width=100, anchor="w")
+        driveHoursLBL = Label(self, text="You can drive again in approximately: ", font=font_label, fg=accent_color, bg="#313b42", width=100, anchor="w")
         driveHoursLBL.grid(column=0, row=6,columnspan=2,pady=20)
         
     #     # Calculate button action
@@ -147,9 +149,10 @@ class Calculator(Frame):
                 text="Calculate Drinks",
                 command=clicked,
                 font=font_button,
-                bg=accent_color,
-                fg="#1e1e2f",
-                activebackground="#00acc1",
+                bg="#313b42",
+                fg="#313b42",
+                highlightbackground="#313b42",
+                activebackground="#fefac7",
                 activeforeground=text_color,
                 width=20,
                 bd=0,
