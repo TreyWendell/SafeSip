@@ -5,7 +5,7 @@ class SafeSipApp(Tk):
     def __init__(self):
         super().__init__()
         self.title("SafeSipApp")
-        self.geometry("1000x800")
+        self.geometry("849x741")
 
         container = Frame(self)
         container.pack(fill="both", expand=True)
@@ -28,8 +28,26 @@ class SafeSipApp(Tk):
 class HomePage(Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
-        Label(self, text="Home Page").grid(pady=20)
-        Button(self, text="Go to Drink Calculator", command=lambda: controller.show_frame(Calculator)).grid()
+       
+        # Label(self, text="Home Page").grid(pady=20)
+        # Button(self, text="Go to Drink Calculator", command=lambda: controller.show_frame(Calculator)).grid()
+        self.SafeSipLogo = PhotoImage(file="SafeSipLogo.png")
+        # Label(self, image=self.SafeSipLogo).grid(column=2, row=2)
+
+        background = Canvas(self, width=849, height=741)
+        background.grid()
+        background.create_image(0, 0, image = self.SafeSipLogo, anchor = "nw")
+
+        homePageLabel = Label(self, text="Home Page")
+        homePageLabel_Canvas = background.create_text(100, 10,  
+                                       anchor = "nw", 
+                                       text= homePageLabel)
+        goToCalcButton = Button(self, text="Go to Drink Calculator", command=lambda: controller.show_frame(Calculator))
+        goToCalcButton_Canvas = background.create_window(100, 10,  
+                                       anchor = "nw", 
+                                       window = goToCalcButton)
+        
+
 
 class Calculator(Frame):
     def __init__(self, parent, controller):
