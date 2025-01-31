@@ -17,9 +17,9 @@ def CalculateBAC(level, hours):
     match level:
         
         case 1:
-            print("Really?")
+            bac = 0.02
         case 2:
-            bac = 0.01
+            bac = 0.03
         case 3:
             bac = 0.05
         case 4:
@@ -54,5 +54,7 @@ def CalculateDrinks(weight, gender, bac):
 
 
 def CalculateHoursTillLegal(bac):
-    return  (bac - .08) / 0.015
-    #TODO Fix lower limit if someone is already legal to drive after low drinks
+    if bac < .08:
+        return 0.0
+    else:
+        return  (bac - .08) / 0.015
